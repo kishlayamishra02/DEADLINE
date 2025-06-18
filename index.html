@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hackathon Countdown Timer</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-animation"></div>
+    <div class="particles"></div>
+    
+    <main class="container">
+        <header class="header">
+            <h1 class="main-title">Hackathon Countdown</h1>
+            <p class="subtitle">Submit your project before the deadline!</p>
+        </header>
+
+        <div class="countdown-container">
+            <div class="countdown-wrapper">
+                <div class="countdown-item" data-label="Days">
+                    <span class="countdown-number" id="days">11</span>
+                    <span class="countdown-label">Days</span>
+                </div>
+                <div class="countdown-separator">:</div>
+                <div class="countdown-item" data-label="Hours">
+                    <span class="countdown-number" id="hours">06</span>
+                    <span class="countdown-label">Hours</span>
+                </div>
+                <div class="countdown-separator">:</div>
+                <div class="countdown-item" data-label="Minutes">
+                    <span class="countdown-number" id="minutes">59</span>
+                    <span class="countdown-label">Minutes</span>
+                </div>
+                <div class="countdown-separator">:</div>
+                <div class="countdown-item" data-label="Seconds">
+                    <span class="countdown-number" id="seconds">00</span>
+                    <span class="countdown-label">Seconds</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <p class="progress-text">Time remaining until deadline</p>
+        </div>
+
+        <div class="action-container">
+            <button class="btn btn--primary submit-btn">
+                <span class="btn-text">Submit Project</span>
+                <span class="btn-glow"></span>
+            </button>
+        </div>
+
+        <footer class="footer">
+            <p class="deadline-info">Deadline: <strong>June 30, 2025 - 00:00</strong></p>
+            <p class="encouragement">🚀 Make every second count! Your innovation awaits! 💻</p>
+        </footer>
+
+        <div class="celebration-overlay hidden" id="celebration">
+            <div class="celebration-content">
+                <h2 class="celebration-title">🎉 Hackathon Ended! 🎉</h2>
+                <p class="celebration-message">Time's up! Hope you submitted your amazing project!</p>
+            </div>
+        </div>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
