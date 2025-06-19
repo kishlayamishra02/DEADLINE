@@ -1,247 +1,288 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Hackathon deadline: June 30, 2025, 00:00:00
-    const deadline = new Date('June 30, 2025 00:00:00').getTime();
+// Hackathon countdown timer functionality
+class HackathonCountdown {
+    constructor() {
+        this.targetDate = new Date('2025-06-30T00:00:00').getTime();
+        this.phases = [
+            { threshold: 7 * 24 * 60 * 60 * 1000, title: "🛠️ DEVELOPMENT PHASE ACTIVE", desc: "Core system architecture and feature development" },
+            { threshold: 4 * 24 * 60 * 60 * 1000, title: "⚡ CORE BUILDING IN PROGRESS", desc: "API development and user interface creation" },
+            { threshold: 2 * 24 * 60 * 60 * 1000, title: "🔥 FINAL SPRINT INITIATED", desc: "Testing, optimization, and deployment preparation" },
+            { threshold: 1 * 24 * 60 * 60 * 1000, title: "⚠️ SUBMISSION WINDOW APPROACHING", desc: "Final testing and documentation completion" },
+            { threshold: 12 * 60 * 60 * 1000, title: "🚨 CRITICAL: DEADLINE IMMINENT", desc: "Last chance for final adjustments" },
+            { threshold: 1 * 60 * 60 * 1000, title: "💥 LAST CALL - SUBMIT NOW!", desc: "Immediate submission required" },
+            { threshold: 0, title: "⏰ HACKATHON ENDED", desc: "Submission deadline has passed" }
+        ];
+        
+        this.elements = {
+            days: document.getElementById('days'),
+            hours: document.getElementById('hours'),
+            minutes: document.getElementById('minutes'),
+            seconds: document.getElementById('seconds'),
+            phaseTitle: document.getElementById('phase-title'),
+            phaseDescription: document.getElementById('phase-description')
+        };
+        
+        this.previousValues = { days: -1, hours: -1, minutes: -1, seconds: -1 };
+        this.init();
+    }
     
-    // DOM elements for countdown
-    const daysElement = document.getElementById('days');
-    const hoursElement = document.getElementById('hours');
-    const minutesElement = document.getElementById('minutes');
-    const secondsElement = document.getElementById('seconds');
-    const progressFill = document.getElementById('progress-fill');
-    const celebrationOverlay = document.getElementById('celebration');
+    init() {
+        this.updateCountdown();
+        this.startTimer();
+        this.addVisualEffects();
+    }
     
-    // Total duration for progress bar calculation (in milliseconds)
-    const startDate = new Date('June 18, 2025 17:01:00').getTime();
-    const totalDuration = deadline - startDate;
-
-    // Add click handler for submit button with multiple selectors for reliability
-    function setupSubmitButton() {
-        const submitButton = document.querySelector('.submit-btn') || 
-                           document.querySelector('button') || 
-                           document.querySelector('[class*="submit"]');
-        
-        if (submitButton) {
-            submitButton.onclick = function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                alert('🚀 Project submission feature would be integrated with your hackathon platform! Good luck with your project! 💻');
-                return false;
-            };
-            
-            // Also add event listener as backup
-            submitButton.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                alert('🚀 Project submission feature would be integrated with your hackathon platform! Good luck with your project! 💻');
-            }, true);
-        }
+    startTimer() {
+        setInterval(() => {
+            this.updateCountdown();
+        }, 1000);
     }
-
-    // Animation class for smooth number transitions
-    function animateValue(element, newValue) {
-        if (!element) return;
-        
-        // Format the number to always have 2 digits
-        newValue = newValue.toString().padStart(2, '0');
-        
-        // Only animate if the value is changing
-        if (element.textContent !== newValue) {
-            element.style.animation = 'number-change 0.5s ease-out';
-            
-            // Wait for half the animation to complete before changing the value
-            setTimeout(() => {
-                element.textContent = newValue;
-            }, 250);
-            
-            // Remove animation class when complete to allow future animations
-            setTimeout(() => {
-                element.style.animation = '';
-            }, 500);
-        }
-    }
-
-    // Create particles in the background
-    function createParticles() {
-        const particlesContainer = document.querySelector('.particles');
-        if (!particlesContainer) return;
-        
-        const particleCount = 50;
-        
-        for (let i = 0; i < particleCount; i++) {
-            const particle = document.createElement('div');
-            particle.classList.add('particle');
-            
-            // Random positioning
-            const x = Math.random() * 100;
-            const y = Math.random() * 100;
-            const size = Math.random() * 3 + 1;
-            const duration = Math.random() * 20 + 10;
-            const delay = Math.random() * 5;
-            
-            particle.style.cssText = `
-                position: absolute;
-                width: ${size}px;
-                height: ${size}px;
-                background: rgba(255, 255, 255, ${Math.random() * 0.3 + 0.1});
-                border-radius: 50%;
-                top: ${y}%;
-                left: ${x}%;
-                box-shadow: 0 0 ${size * 2}px rgba(255, 255, 255, 0.8);
-                animation: float ${duration}s ease-in-out ${delay}s infinite alternate;
-                opacity: ${Math.random() * 0.5 + 0.3};
-            `;
-            
-            particlesContainer.appendChild(particle);
-        }
-    }
-
-    // Update countdown timer function
-    function updateCountdown() {
+    
+    updateCountdown() {
         const now = new Date().getTime();
-        const timeRemaining = deadline - now;
-
-        // Calculate time components
-        const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
-
-        // Ensure non-negative values
-        const displayDays = Math.max(0, days);
-        const displayHours = Math.max(0, hours);
-        const displayMinutes = Math.max(0, minutes);
-        const displaySeconds = Math.max(0, seconds);
-
-        // Update the displayed values with animation
-        animateValue(daysElement, displayDays);
-        animateValue(hoursElement, displayHours);
-        animateValue(minutesElement, displayMinutes);
-        animateValue(secondsElement, displaySeconds);
-
-        // Update progress bar
-        const timePassed = now - startDate;
-        const progressPercentage = Math.min(100, Math.max(0, (timePassed / totalDuration) * 100));
-        if (progressFill) {
-            progressFill.style.width = progressPercentage + '%';
+        const timeLeft = this.targetDate - now;
+        
+        if (timeLeft < 0) {
+            this.handleExpiredTimer();
+            return;
         }
-
-        // Check if the countdown has ended
-        if (timeRemaining < 0) {
-            clearInterval(countdownTimer);
-            
-            // Set all values to zero
-            if (daysElement) daysElement.textContent = '00';
-            if (hoursElement) hoursElement.textContent = '00';
-            if (minutesElement) minutesElement.textContent = '00';
-            if (secondsElement) secondsElement.textContent = '00';
-            
-            // Show 100% progress
-            if (progressFill) progressFill.style.width = '100%';
-            
-            // Show celebration overlay
-            if (celebrationOverlay) {
-                celebrationOverlay.classList.remove('hidden');
-                celebrationOverlay.classList.add('visible');
-            }
-            
-            // Add confetti effect
-            createConfetti();
-        }
+        
+        const timeComponents = this.calculateTimeComponents(timeLeft);
+        this.updateDisplay(timeComponents);
+        this.updatePhase(timeLeft);
+        this.updateUrgencyStyles(timeLeft);
     }
-
-    // Create confetti effect when countdown ends
-    function createConfetti() {
-        const confettiContainer = document.createElement('div');
-        confettiContainer.className = 'confetti-container';
-        confettiContainer.style.cssText = `
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 99;
-            overflow: hidden;
-        `;
-        document.body.appendChild(confettiContainer);
-
-        const colors = ['#6366f1', '#8b5cf6', '#06b6d4', '#ec4899', '#10b981'];
-        const confettiCount = 200;
-
-        for (let i = 0; i < confettiCount; i++) {
-            const confetti = document.createElement('div');
-            const size = Math.random() * 10 + 5;
-            const color = colors[Math.floor(Math.random() * colors.length)];
-            const shape = Math.random() > 0.5 ? '50%' : '0';
-
-            confetti.style.cssText = `
-                position: absolute;
-                width: ${size}px;
-                height: ${size}px;
-                background-color: ${color};
-                border-radius: ${shape};
-                top: -${size}px;
-                left: ${Math.random() * 100}vw;
-                opacity: ${Math.random() * 0.8 + 0.2};
-                animation: confetti-fall ${Math.random() * 3 + 3}s linear forwards;
-                transform: rotate(${Math.random() * 360}deg);
-            `;
-
-            confettiContainer.appendChild(confetti);
-        }
-
-        // Add keyframe animation for confetti fall
-        const styleSheet = document.createElement('style');
-        styleSheet.textContent = `
-            @keyframes confetti-fall {
-                0% {
-                    transform: translateY(0) rotate(0deg);
-                    opacity: 1;
-                }
-                90% {
-                    opacity: 0.8;
-                }
-                100% {
-                    transform: translateY(100vh) rotate(720deg);
-                    opacity: 0;
-                }
-            }
-
-            @keyframes float {
-                0% {
-                    transform: translateY(0) translateX(0);
-                }
-                50% {
-                    transform: translateY(-10px) translateX(5px);
-                }
-                100% {
-                    transform: translateY(-20px) translateX(-5px);
-                }
-            }
-        `;
-        document.head.appendChild(styleSheet);
-    }
-
-    // Initialize everything
-    createParticles();
-    setupSubmitButton();
     
-    // Run the countdown update immediately
-    updateCountdown();
-
-    // Update the countdown every second
-    const countdownTimer = setInterval(updateCountdown, 1000);
-
-    // Add some visual feedback when the page loads
-    setTimeout(() => {
-        const countdownItems = document.querySelectorAll('.countdown-item');
-        countdownItems.forEach((item, index) => {
-            setTimeout(() => {
-                item.style.animation = 'pulse-subtle 3s ease-in-out infinite';
-            }, index * 200);
+    calculateTimeComponents(timeLeft) {
+        return {
+            days: Math.floor(timeLeft / (1000 * 60 * 60 * 24)),
+            hours: Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+            minutes: Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60)),
+            seconds: Math.floor((timeLeft % (1000 * 60)) / 1000)
+        };
+    }
+    
+    updateDisplay(timeComponents) {
+        Object.keys(timeComponents).forEach(unit => {
+            const value = timeComponents[unit];
+            const element = this.elements[unit];
+            const formattedValue = value.toString().padStart(2, '0');
+            
+            if (this.previousValues[unit] !== value) {
+                this.animateValueChange(element, formattedValue);
+                this.previousValues[unit] = value;
+            }
         });
-    }, 1000);
+    }
+    
+    animateValueChange(element, newValue) {
+        element.style.transform = 'scale(1.2)';
+        element.style.filter = 'brightness(1.5)';
+        
+        setTimeout(() => {
+            element.textContent = newValue;
+            element.style.transform = 'scale(1)';
+            element.style.filter = 'brightness(1)';
+        }, 150);
+    }
+    
+    updatePhase(timeLeft) {
+        const currentPhase = this.phases.find(phase => timeLeft > phase.threshold) || this.phases[this.phases.length - 1];
+        
+        if (this.elements.phaseTitle.textContent !== currentPhase.title) {
+            this.animatePhaseChange(currentPhase);
+        }
+    }
+    
+    animatePhaseChange(phase) {
+        this.elements.phaseTitle.style.opacity = '0';
+        this.elements.phaseDescription.style.opacity = '0';
+        
+        setTimeout(() => {
+            this.elements.phaseTitle.textContent = phase.title;
+            this.elements.phaseDescription.textContent = phase.desc;
+            this.elements.phaseTitle.style.opacity = '1';
+            this.elements.phaseDescription.style.opacity = '1';
+        }, 300);
+    }
+    
+    updateUrgencyStyles(timeLeft) {
+        const timeValues = document.querySelectorAll('.time-value');
+        
+        // Remove existing urgency classes
+        timeValues.forEach(el => {
+            el.classList.remove('urgent', 'critical');
+        });
+        
+        // Apply urgency styles based on time remaining
+        if (timeLeft < 60 * 60 * 1000) { // Less than 1 hour
+            timeValues.forEach(el => el.classList.add('critical'));
+            this.intensifyBackground('critical');
+        } else if (timeLeft < 12 * 60 * 60 * 1000) { // Less than 12 hours
+            timeValues.forEach(el => el.classList.add('urgent'));
+            this.intensifyBackground('urgent');
+        } else if (timeLeft < 24 * 60 * 60 * 1000) { // Less than 1 day
+            this.intensifyBackground('warning');
+        } else {
+            this.intensifyBackground('normal');
+        }
+    }
+    
+    intensifyBackground(urgencyLevel) {
+        const body = document.body;
+        body.className = body.className.replace(/urgency-\w+/g, '');
+        
+        if (urgencyLevel !== 'normal') {
+            body.classList.add(`urgency-${urgencyLevel}`);
+        }
+    }
+    
+    handleExpiredTimer() {
+        this.elements.days.textContent = '00';
+        this.elements.hours.textContent = '00';
+        this.elements.minutes.textContent = '00';
+        this.elements.seconds.textContent = '00';
+        
+        this.elements.phaseTitle.textContent = '⏰ HACKATHON ENDED';
+        this.elements.phaseDescription.textContent = 'Submission deadline has passed';
+        
+        // Add expired state styling
+        document.querySelector('.countdown-container').classList.add('expired');
+    }
+    
+    addVisualEffects() {
+        // Add hover effects to countdown numbers
+        const timeValues = document.querySelectorAll('.time-value');
+        timeValues.forEach(element => {
+            element.addEventListener('mouseenter', () => {
+                element.style.transform = 'scale(1.1)';
+                element.style.filter = 'brightness(1.3) saturate(1.2)';
+            });
+            
+            element.addEventListener('mouseleave', () => {
+                element.style.transform = 'scale(1)';
+                element.style.filter = 'brightness(1) saturate(1)';
+            });
+        });
+        
+        // Add click effect to phase container
+        const phaseContainer = document.querySelector('.phase-container');
+        phaseContainer.addEventListener('click', () => {
+            phaseContainer.style.animation = 'none';
+            phaseContainer.offsetHeight; // Trigger reflow
+            phaseContainer.style.animation = 'phaseGlow 0.5s ease-in-out';
+        });
+        
+        // Dynamic particles intensity based on urgency
+        this.adjustParticleIntensity();
+        setInterval(() => {
+            this.adjustParticleIntensity();
+        }, 30000); // Check every 30 seconds
+    }
+    
+    adjustParticleIntensity() {
+        const now = new Date().getTime();
+        const timeLeft = this.targetDate - now;
+        const particles = document.querySelectorAll('.particle');
+        
+        if (timeLeft < 60 * 60 * 1000) { // Less than 1 hour
+            particles.forEach(particle => {
+                particle.style.animationDuration = '3s';
+                particle.style.filter = 'brightness(2) saturate(1.5)';
+            });
+        } else if (timeLeft < 12 * 60 * 60 * 1000) { // Less than 12 hours
+            particles.forEach(particle => {
+                particle.style.animationDuration = '4s';
+                particle.style.filter = 'brightness(1.5) saturate(1.2)';
+            });
+        } else if (timeLeft < 24 * 60 * 60 * 1000) { // Less than 1 day
+            particles.forEach(particle => {
+                particle.style.animationDuration = '5s';
+                particle.style.filter = 'brightness(1.2)';
+            });
+        }
+    }
+}
 
-    // Additional backup - use setTimeout to ensure DOM is fully loaded
-    setTimeout(setupSubmitButton, 1000);
+// Additional CSS classes for urgency states
+const urgencyStyles = `
+    .urgency-warning {
+        background: linear-gradient(135deg, #0a0a0a 0%, #2a1826 50%, #1d1421 100%);
+    }
+    
+    .urgency-urgent {
+        background: linear-gradient(135deg, #1a0a0a 0%, #3a0826 50%, #2d1421 100%);
+    }
+    
+    .urgency-critical {
+        background: linear-gradient(135deg, #2a0a0a 0%, #4a0826 50%, #3d1421 100%);
+        animation: criticalBg 1s ease-in-out infinite alternate;
+    }
+    
+    @keyframes criticalBg {
+        0% { filter: brightness(1); }
+        100% { filter: brightness(1.1) hue-rotate(5deg); }
+    }
+    
+    .countdown-container.expired {
+        border-color: #666;
+        animation: none;
+        opacity: 0.7;
+    }
+    
+    .countdown-container.expired .time-value {
+        color: #666;
+        animation: none;
+    }
+`;
+
+// Inject urgency styles
+const styleSheet = document.createElement('style');
+styleSheet.textContent = urgencyStyles;
+document.head.appendChild(styleSheet);
+
+// Performance optimization for smooth animations
+const optimizePerformance = () => {
+    // Enable hardware acceleration for animated elements
+    const animatedElements = document.querySelectorAll('.time-value, .particle, .phase-title');
+    animatedElements.forEach(el => {
+        el.style.willChange = 'transform, opacity, filter';
+        el.style.transform = 'translateZ(0)'; // Force hardware acceleration
+    });
+};
+
+// Initialize the countdown when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    optimizePerformance();
+    new HackathonCountdown();
+    
+    // Add loading fade-in effect
+    document.body.style.opacity = '0';
+    setTimeout(() => {
+        document.body.style.transition = 'opacity 1s ease-in-out';
+        document.body.style.opacity = '1';
+    }, 100);
+});
+
+// Handle visibility change to pause/resume animations when tab is not active
+document.addEventListener('visibilitychange', () => {
+    const particles = document.querySelectorAll('.particle');
+    if (document.hidden) {
+        particles.forEach(particle => {
+            particle.style.animationPlayState = 'paused';
+        });
+    } else {
+        particles.forEach(particle => {
+            particle.style.animationPlayState = 'running';
+        });
+    }
+});
+
+// Add resize handler for responsive particle positioning
+window.addEventListener('resize', () => {
+    // Recalculate particle positions on resize if needed
+    const particles = document.querySelectorAll('.particle');
+    particles.forEach((particle, index) => {
+        const leftPercentage = (index % 20) * 5 + Math.random() * 5;
+        particle.style.left = `${leftPercentage}%`;
+    });
 });
