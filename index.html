@@ -3,75 +3,352 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UnityLink | Hackathon Countdown</title>
+    <title>UnityLink - Caregiver Coordination Hub Timeline</title>
     <link rel="icon" href="logo.jpg" sizes="32x32" />
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="particles-container">
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-    </div>
+    <div class="timeline-container">
+        <header class="timeline-header">
+            <div class="project-logo">
+                <i class="fas fa-heart"></i>
+                <h1>UnityLink</h1>
+            </div>
+            <h2>Caregiver Coordination Hub</h2>
+            <p>Development Timeline | June 19-29, 2025</p>
+        </header>
 
-    <div class="container">
-        <div class="hackathon-title">
-            <h1>CS Base Hack4Health</h1>
-            <h2>Caregiver Coordination Hub - UnityLink</h2>
-        </div>
+        <div class="timeline-content">
+            <div class="timeline-line"></div>
 
-        <div class="countdown-container">
-            <div class="countdown-label">Submission Deadline</div>
-            
-            <div class="countdown">
-                <div class="time-segment">
-                    <div class="time-value" id="days">00</div>
-                    <div class="time-label">Days</div>
+            <!-- Day 1 -->
+            <div class="timeline-item left" data-day="1">
+                <div class="timeline-marker">
+                    <span class="day-number">1</span>
                 </div>
-                <div class="time-divider">:</div>
-                <div class="time-segment">
-                    <div class="time-value" id="hours">00</div>
-                    <div class="time-label">Hours</div>
-                </div>
-                <div class="time-divider">:</div>
-                <div class="time-segment">
-                    <div class="time-value" id="minutes">00</div>
-                    <div class="time-label">Minutes</div>
-                </div>
-                <div class="time-divider">:</div>
-                <div class="time-segment">
-                    <div class="time-value" id="seconds">00</div>
-                    <div class="time-label">Seconds</div>
+                <div class="timeline-card">
+                    <div class="card-header">
+                        <h3>Day 1 - Project Setup</h3>
+                        <span class="date">June 19, 2025</span>
+                    </div>
+                    <div class="tasks-container">
+                        <div class="task-item">
+                            <div class="member-tag kishlaya">Kishlaya</div>
+                            <p>Organize team kickoff meeting, Create GitHub repository, Define project scope</p>
+                        </div>
+                        <div class="task-item">
+                            <div class="member-tag ramam">Ramam</div>
+                            <p>Research React.js best practices, Create wireframes for main screens</p>
+                        </div>
+                        <div class="task-item">
+                            <div class="member-tag madhav">Madhav</div>
+                            <p>Create Firebase project, Set up Firebase Authentication, Initialize Firestore database</p>
+                        </div>
+                        <div class="task-item">
+                            <div class="member-tag arjit">Arjit</div>
+                            <p>Research Google Calendar API, Study Firebase Cloud Messaging</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="deadline-text">June 30, 2025 - 00:00</div>
+            <!-- Day 2 -->
+            <div class="timeline-item right" data-day="2">
+                <div class="timeline-marker">
+                    <span class="day-number">2</span>
+                </div>
+                <div class="timeline-card">
+                    <div class="card-header">
+                        <h3>Day 2 - Foundation Building</h3>
+                        <span class="date">June 20, 2025</span>
+                    </div>
+                    <div class="tasks-container">
+                        <div class="task-item">
+                            <div class="member-tag ramam">Ramam</div>
+                            <p>Set up React.js project, Install packages, Create basic component structure</p>
+                        </div>
+                        <div class="task-item">
+                            <div class="member-tag madhav">Madhav</div>
+                            <p>Implement user registration and login, Create Firestore collections</p>
+                        </div>
+                        <div class="task-item">
+                            <div class="member-tag kishlaya">Kishlaya</div>
+                            <p>Set up GitHub repository structure, Create README.md, Monitor team progress</p>
+                        </div>
+                        <div class="task-item">
+                            <div class="member-tag arjit">Arjit</div>
+                            <p>Help test Firebase authentication, Assist with React component setup</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Day 3 -->
+            <div class="timeline-item left" data-day="3">
+                <div class="timeline-marker">
+                    <span class="day-number">3</span>
+                </div>
+                <div class="timeline-card">
+                    <div class="card-header">
+                        <h3>Day 3 - Core Development Begins</h3>
+                        <span class="date">June 21, 2025</span>
+                    </div>
+                    <div class="tasks-container">
+                        <div class="task-item">
+                            <div class="member-tag ramam">Ramam</div>
+                            <p>Build login and registration pages, Create user dashboard layout</p>
+                        </div>
+                        <div class="task-item">
+                            <div class="member-tag madhav">Madhav</div>
+                            <p>Create APIs for user profile management, Implement task creation functions</p>
+                        </div>
+                        <div class="task-item">
+                            <div class="member-tag kishlaya">Kishlaya</div>
+                            <p>Review code quality, Update project documentation, Coordinate development</p>
+                        </div>
+                        <div class="task-item">
+                            <div class="member-tag arjit">Arjit</div>
+                            <p>Connect frontend forms to backend APIs, Test user registration flow</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Day 4 -->
+            <div class="timeline-item right" data-day="4">
+                <div class="timeline-marker">
+                    <span class="day-number">4</span>
+                </div>
+                <div class="timeline-card">
+                    <div class="card-header">
+                        <h3>Day 4 - Calendar & Scheduling</h3>
+                        <span class="date">June 22, 2025</span>
+                    </div>
+                    <div class="tasks-container">
+                        <div class="task-item">
+                            <div class="member-tag ramam">Ramam</div>
+                            <p>Build task scheduling interface, Create calendar view component</p>
+                        </div>
+                        <div class="task-item">
+                            <div class="member-tag madhav">Madhav</div>
+                            <p>Integrate Google Calendar API, Create APIs for task scheduling</p>
+                        </div>
+                        <div class="task-item">
+                            <div class="member-tag kishlaya">Kishlaya</div>
+                            <p>Test calendar functionality, Monitor API rate limits, Coordinate features</p>
+                        </div>
+                        <div class="task-item">
+                            <div class="member-tag arjit">Arjit</div>
+                            <p>Implement Firebase Cloud Messaging, Test calendar integration</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Day 5 -->
+            <div class="timeline-item left" data-day="5">
+                <div class="timeline-marker">
+                    <span class="day-number">5</span>
+                </div>
+                <div class="timeline-card">
+                    <div class="card-header">
+                        <h3>Day 5 - Enhanced Features</h3>
+                        <span class="date">June 23, 2025</span>
+                    </div>
+                    <div class="tasks-container">
+                        <div class="task-item">
+                            <div class="member-tag ramam">Ramam</div>
+                            <p>Add responsive design, Implement accessibility features, Improve UX</p>
+                        </div>
+                        <div class="task-item">
+                            <div class="member-tag madhav">Madhav</div>
+                            <p>Set up automated task reminders, Optimize database queries</p>
+                        </div>
+                        <div class="task-item">
+                            <div class="member-tag kishlaya">Kishlaya</div>
+                            <p>Start writing documentation, Prepare demo video script, Test functionality</p>
+                        </div>
+                        <div class="task-item">
+                            <div class="member-tag arjit">Arjit</div>
+                            <p>Test notification delivery, Verify calendar sync, Help with mobile testing</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Day 6 -->
+            <div class="timeline-item right" data-day="6">
+                <div class="timeline-marker">
+                    <span class="day-number">6</span>
+                </div>
+                <div class="timeline-card">
+                    <div class="card-header">
+                        <h3>Day 6 - Communication Features</h3>
+                        <span class="date">June 24, 2025</span>
+                    </div>
+                    <div class="tasks-container">
+                        <div class="task-item">
+                            <div class="member-tag ramam">Ramam</div>
+                            <p>Build notes/communication interface, Create shared messaging system</p>
+                        </div>
+                        <div class="task-item">
+                            <div class="member-tag madhav">Madhav</div>
+                            <p>Add database support for notes, Implement real-time data sync</p>
+                        </div>
+                        <div class="task-item">
+                            <div class="member-tag kishlaya">Kishlaya</div>
+                            <p>Review project documentation, Test communication features</p>
+                        </div>
+                        <div class="task-item">
+                            <div class="member-tag arjit">Arjit</div>
+                            <p>Help with frontend-backend integration, Test real-time messaging</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Day 7 -->
+            <div class="timeline-item left" data-day="7">
+                <div class="timeline-marker">
+                    <span class="day-number">7</span>
+                </div>
+                <div class="timeline-card">
+                    <div class="card-header">
+                        <h3>Day 7 - Testing & Polish</h3>
+                        <span class="date">June 25, 2025</span>
+                    </div>
+                    <div class="tasks-container">
+                        <div class="task-item">
+                            <div class="member-tag ramam">Ramam</div>
+                            <p>Fix UI bugs, Optimize loading times, Add final styling touches</p>
+                        </div>
+                        <div class="task-item">
+                            <div class="member-tag madhav">Madhav</div>
+                            <p>Optimize database queries, Fix backend bugs, Improve API response times</p>
+                        </div>
+                        <div class="task-item">
+                            <div class="member-tag kishlaya">Kishlaya</div>
+                            <p>Coordinate comprehensive testing, Gather feedback, Plan improvements</p>
+                        </div>
+                        <div class="task-item">
+                            <div class="member-tag arjit">Arjit</div>
+                            <p>Perform end-to-end testing, Test on different browsers, Document bugs</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Day 8 -->
+            <div class="timeline-item right" data-day="8">
+                <div class="timeline-marker">
+                    <span class="day-number">8</span>
+                </div>
+                <div class="timeline-card">
+                    <div class="card-header">
+                        <h3>Day 8 - Pre-Deployment</h3>
+                        <span class="date">June 26, 2025</span>
+                    </div>
+                    <div class="tasks-container">
+                        <div class="task-item">
+                            <div class="member-tag ramam">Ramam</div>
+                            <p>Finalize UI components, Prepare for production deployment, Optimize bundle</p>
+                        </div>
+                        <div class="task-item">
+                            <div class="member-tag madhav">Madhav</div>
+                            <p>Finalize backend configuration, Prepare API documentation</p>
+                        </div>
+                        <div class="task-item">
+                            <div class="member-tag kishlaya">Kishlaya</div>
+                            <p>Write demo video script, Prepare presentation materials, Plan deployment</p>
+                        </div>
+                        <div class="task-item">
+                            <div class="member-tag arjit">Arjit</div>
+                            <p>Help record demo video, Assist with video editing, Test final app version</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Day 9 -->
+            <div class="timeline-item left" data-day="9">
+                <div class="timeline-marker">
+                    <span class="day-number">9</span>
+                </div>
+                <div class="timeline-card">
+                    <div class="card-header">
+                        <h3>Day 9 - Deployment</h3>
+                        <span class="date">June 27, 2025</span>
+                    </div>
+                    <div class="tasks-container">
+                        <div class="task-item">
+                            <div class="member-tag kishlaya">Kishlaya</div>
+                            <p>Deploy frontend to Netlify, Deploy backend to Firebase, Test deployed app</p>
+                        </div>
+                        <div class="task-item">
+                            <div class="member-tag ramam">Ramam</div>
+                            <p>Assist with Netlify deployment, Fix deployment-related UI issues</p>
+                        </div>
+                        <div class="task-item">
+                            <div class="member-tag madhav">Madhav</div>
+                            <p>Monitor Firebase deployment, Fix production environment issues</p>
+                        </div>
+                        <div class="task-item">
+                            <div class="member-tag arjit">Arjit</div>
+                            <p>Test deployed application end-to-end, Prepare final submission materials</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Day 10 -->
+            <div class="timeline-item right" data-day="10">
+                <div class="timeline-marker">
+                    <span class="day-number">10</span>
+                </div>
+                <div class="timeline-card">
+                    <div class="card-header">
+                        <h3>Day 10 - Final Submission</h3>
+                        <span class="date">June 28-29, 2025</span>
+                    </div>
+                    <div class="tasks-container">
+                        <div class="task-item">
+                            <div class="member-tag kishlaya">Kishlaya</div>
+                            <p>Submit project on Devpost, Upload demo video, Complete submission fields</p>
+                        </div>
+                        <div class="task-item">
+                            <div class="member-tag ramam">Ramam</div>
+                            <p>Support final testing, Help with demo video, Verify all links work</p>
+                        </div>
+                        <div class="task-item">
+                            <div class="member-tag madhav">Madhav</div>
+                            <p>Support final testing, Provide technical documentation, Monitor app performance</p>
+                        </div>
+                        <div class="task-item">
+                            <div class="member-tag arjit">Arjit</div>
+                            <p>Assist with submission process, Help with final testing, Celebrate completion!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="phase-container">
-            <div class="phase-title" id="phase-title">🛠️ DEVELOPMENT PHASE ACTIVE</div>
-            <div class="phase-description" id="phase-description">Core system architecture and feature development</div>
-        </div>
-
-        <div class="glow-line"></div>
+        <footer class="timeline-footer">
+            <div class="tech-stack">
+                <h4>Tech Stack</h4>
+                <div class="tech-icons">
+                    <span class="tech-item"><i class="fab fa-react"></i> React.js</span>
+                    <span class="tech-item"><i class="fas fa-fire"></i> Firebase</span>
+                    <span class="tech-item"><i class="fab fa-google"></i> Google Calendar API</span>
+                    <span class="tech-item"><i class="fas fa-cloud"></i> Netlify</span>
+                </div>
+            </div>
+        </footer>
     </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
 
     <script src="app.js"></script>
 </body>
