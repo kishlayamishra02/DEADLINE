@@ -148,7 +148,6 @@ function highlightCard(timelineItem) {
                 transform: translateY(-10px) scale(1.03) !important;
                 box-shadow: 0 25px 50px rgba(255, 107, 107, 0.2) !important;
             }
-
             .timeline-item.highlighted .timeline-marker {
                 background: linear-gradient(135deg, #ff6b6b 0%, #ffa726 100%) !important;
                 transform: scale(1.2) !important;
