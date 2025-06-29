@@ -1,5 +1,7 @@
 // Timeline Animation and Interaction Script
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('Timeline script loaded');
+
     // Initialize animations
     initializeAnimations();
 
@@ -11,11 +13,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Add progress indicator
     createProgressIndicator();
+
+    // Add celebration effect
+    addCelebrationEffect();
 });
 
 function initializeAnimations() {
     // Animate timeline items on load
     const timelineItems = document.querySelectorAll('.timeline-item');
+    console.log(`Found ${timelineItems.length} timeline items`);
 
     timelineItems.forEach((item, index) => {
         // Add staggered animation delay
@@ -69,6 +75,7 @@ function animateChildElements(timelineItem) {
             setTimeout(() => {
                 task.style.opacity = '1';
                 task.style.transform = 'translateX(0)';
+                task.classList.add('animate');
             }, 50);
         }, index * 100);
     });
@@ -80,13 +87,13 @@ function addInteractiveFeatures() {
 
     markers.forEach(marker => {
         marker.addEventListener('mouseenter', function() {
-            this.style.transform = 'scale(1.15) rotate(5deg)';
-            this.style.boxShadow = '0 8px 25px rgba(0,0,0,0.3)';
+            this.style.transform = 'translate(-50%, -50%) scale(1.15) rotate(5deg)';
+            this.style.boxShadow = '0 8px 25px rgba(33, 128, 141, 0.4)';
         });
 
         marker.addEventListener('mouseleave', function() {
-            this.style.transform = 'scale(1) rotate(0deg)';
-            this.style.boxShadow = '0 4px 15px rgba(0,0,0,0.2)';
+            this.style.transform = 'translate(-50%, -50%) scale(1) rotate(0deg)';
+            this.style.boxShadow = '0 4px 15px rgba(33, 128, 141, 0.2)';
         });
 
         // Add click effect
@@ -126,6 +133,16 @@ function addInteractiveFeatures() {
         tag.addEventListener('click', function() {
             highlightMemberTasks(this.textContent.trim());
         });
+
+        tag.addEventListener('mouseenter', function() {
+            this.style.transform = 'scale(1.05)';
+            this.style.boxShadow = '0 2px 8px rgba(0,0,0,0.2)';
+        });
+
+        tag.addEventListener('mouseleave', function() {
+            this.style.transform = 'scale(1)';
+            this.style.boxShadow = 'none';
+        });
     });
 }
 
@@ -137,24 +154,6 @@ function highlightCard(timelineItem) {
 
     // Add highlight class
     timelineItem.classList.add('highlighted');
-
-    // Add CSS for highlight effect
-    if (!document.querySelector('#highlight-styles')) {
-        const style = document.createElement('style');
-        style.id = 'highlight-styles';
-        style.textContent = `
-            .timeline-item.highlighted .timeline-card {
-                border-left: 5px solid #ff6b6b !important;
-                transform: translateY(-10px) scale(1.03) !important;
-                box-shadow: 0 25px 50px rgba(255, 107, 107, 0.2) !important;
-            }
-            .timeline-item.highlighted .timeline-marker {
-                background: linear-gradient(135deg, #ff6b6b 0%, #ffa726 100%) !important;
-                transform: scale(1.2) !important;
-            }
-        `;
-        document.head.appendChild(style);
-    }
 
     // Remove highlight after 3 seconds
     setTimeout(() => {
@@ -169,25 +168,30 @@ function highlightMemberTasks(memberName) {
         tag.style.boxShadow = 'none';
     });
 
+    document.querySelectorAll('.task-item').forEach(item => {
+        item.style.background = '';
+        item.style.borderLeft = '';
+    });
+
     // Highlight all tasks for the selected member
     const memberTags = document.querySelectorAll('.member-tag');
 
     memberTags.forEach(tag => {
         if (tag.textContent.trim() === memberName) {
             tag.style.transform = 'scale(1.1)';
-            tag.style.boxShadow = '0 4px 15px rgba(0,0,0,0.3)';
+            tag.style.boxShadow = '0 4px 15px rgba(33, 128, 141, 0.3)';
 
             // Highlight the task item
             const taskItem = tag.closest('.task-item');
-            taskItem.style.background = '#e3f2fd';
-            taskItem.style.borderLeft = '4px solid #2196f3';
+            taskItem.style.background = 'rgba(33, 128, 141, 0.1)';
+            taskItem.style.borderLeftWidth = '6px';
 
             // Reset after 2 seconds
             setTimeout(() => {
                 tag.style.transform = 'scale(1)';
                 tag.style.boxShadow = 'none';
-                taskItem.style.background = '#f8f9fa';
-                taskItem.style.borderLeft = 'none';
+                taskItem.style.background = '';
+                taskItem.style.borderLeftWidth = '4px';
             }, 2000);
         }
     });
@@ -211,19 +215,20 @@ function createProgressIndicator() {
             position: fixed;
             top: 20px;
             right: 20px;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            z-index: 1000;
             border: 1px solid rgba(255,255,255,0.2);
+            min-width: 200px;
         }
 
         .progress-bar {
-            width: 200px;
+            width: 100%;
             height: 8px;
-            background: #e0e0e0;
+            background: rgba(33, 128, 141, 0.2);
             border-radius: 4px;
             overflow: hidden;
             margin-bottom: 8px;
@@ -231,7 +236,7 @@ function createProgressIndicator() {
 
         .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+            background: linear-gradient(90deg, #21808d 0%, #1d7480 100%);
             width: 0%;
             transition: width 0.5s ease;
             border-radius: 4px;
@@ -239,7 +244,7 @@ function createProgressIndicator() {
 
         .progress-text {
             font-size: 0.9rem;
-            color: #333;
+            color: #134252;
             text-align: center;
             font-weight: 500;
         }
@@ -249,10 +254,30 @@ function createProgressIndicator() {
                 top: 10px;
                 right: 10px;
                 padding: 10px;
+                min-width: 150px;
             }
 
             .progress-bar {
-                width: 150px;
+                width: 100%;
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .progress-indicator {
+                background: rgba(38, 40, 40, 0.95);
+                border: 1px solid rgba(119, 124, 124, 0.3);
+            }
+
+            .progress-text {
+                color: #f5f5f5;
+            }
+
+            .progress-bar {
+                background: rgba(50, 184, 198, 0.2);
+            }
+
+            .progress-fill {
+                background: linear-gradient(90deg, #32b8c6 0%, #2da6b2 100%);
             }
         }
     `;
@@ -283,15 +308,15 @@ function updateProgress() {
         }
     });
 
-    const progressPercent = (visibleItems / timelineItems.length) * 100;
+    const progressPercent = Math.min((visibleItems / timelineItems.length) * 100, 100);
     progressFill.style.width = `${progressPercent}%`;
 
     if (progressPercent === 100) {
         progressText.textContent = 'Project Complete! 🎉';
-        progressText.style.color = '#4caf50';
+        progressText.style.color = '#21808d';
     } else {
         progressText.textContent = `Day ${visibleItems} of ${timelineItems.length}`;
-        progressText.style.color = '#333';
+        progressText.style.color = '#134252';
     }
 }
 
@@ -351,7 +376,7 @@ function addCelebrationEffect() {
 }
 
 function createConfetti() {
-    const colors = ['#ff6b6b', '#4facfe', '#43e97b', '#f093fb', '#667eea'];
+    const colors = ['#21808d', '#1d7480', '#32b8c6', '#2da6b2', '#f5f5f5'];
 
     for (let i = 0; i < 50; i++) {
         const confetti = document.createElement('div');
@@ -375,7 +400,7 @@ function createConfetti() {
         }, 3000);
     }
 
-    // Add confetti animation
+    // Add confetti animation if not already exists
     if (!document.querySelector('#confetti-styles')) {
         const style = document.createElement('style');
         style.id = 'confetti-styles';
@@ -386,10 +411,23 @@ function createConfetti() {
                     opacity: 0;
                 }
             }
+
+            @keyframes lineGrow {
+                from {
+                    height: 0;
+                }
+                to {
+                    height: 100%;
+                }
+            }
         `;
         document.head.appendChild(style);
     }
 }
 
-// Initialize celebration effect
-addCelebrationEffect();
+// Error handling
+window.addEventListener('error', function(e) {
+    console.error('Timeline script error:', e.error);
+});
+
+console.log('Timeline script fully loaded');
